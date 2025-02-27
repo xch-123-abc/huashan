@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华山景区 - 天下第一险</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* 导航栏样式 */
+        .navbar {
+            background-color: #1a3d5d;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* 首页大图 */
+        .hero {
+            height: 100vh;
+            background-image: url(图片/首页.jfif);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* 景区介绍 */
+        .section {
+            padding: 4rem 2rem;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1a3d5d;
+        }
+
+        /* 图片轮播 */
+        .carousel {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .carousel-item {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* 旅游指南 */
+        .guide-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .guide-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 0.5rem;
+            }
+            
+            .carousel {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#about">景区介绍</a></li>
+            <li><a href="#guide">旅游指南</a></li>
+            <li><a href="#contact">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首页大图 -->
+    <section class="hero" id="home">
+        <div>
+            <h1>华山景区</h1>
+            <p>奇险天下第一山</p>
+        </div>
+    </section>
+
+    <!-- 景区介绍 -->
+    <section class="section" id="about">
+        <h2>华山简介</h2>
+        <div class="carousel">
+            <img src="图片/华山风景.jfif" class="carousel-item active" alt="华山风景">
+            <img src="图片/长空栈道.jfif" class="carousel-item" alt="长空栈道">
+            <img src="图片/华山日出.jfif" class="carousel-item" alt="华山日出">
+        </div>
+        <div class="guide-container">
+            <div class="guide-card">
+                <h3>自然景观</h3>
+                <p>华山由东、西、南、北、中五峰组成，最高峰南峰海拔2154.9米...</p>
+            </div>
+            <div class="guide-card">
+                <h3>人文景观</h3>
+                <p>现存72个半悬空洞，道观20余座，其中玉泉院、东道院、镇岳宫被列为全国重点道教宫观...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅游指南 -->
+    <section class="section" id="guide">
+        <h2>旅游指南</h2>
+        <div class="guide-container">
+            <div class="guide-card">
+                <h3>开放时间</h3>
+                <p>全年开放 07:00 - 19:00（旺季）<br>08:00 - 17:00（淡季）</p>
+            </div>
+            <div class="guide-card">
+                <h3>门票信息</h3>
+                <p>旺季（3月-11月）：160元/人<br>淡季（12月-2月）：100元/人</p>
+            </div>
+            <div class="guide-card">
+                <h3>交通路线</h3>
+                <p>高铁：华山北站下车<br>自驾：连霍高速华阴出口</p>
+            </div>
+        </div>
+    </section>
+    <script>
+        // 简单轮播图实现
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-item');
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.style.opacity = 0);
+            slides[n].style.opacity = 1;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        // 自动播放
+        setInterval(nextSlide, 5000);
+
+        // 初始化显示第一张
+        showSlide(0);
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
